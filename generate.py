@@ -1,125 +1,177 @@
 import random
 from datetime import datetime
 
-WIDTH = 700
-HEIGHT = 260
+WIDTH = 800
+HEIGHT = 300
 
-neurons = []
-
-for i in range(12):
-    neurons.append({
-        "x": random.randint(120,580),
-        "y": random.randint(90,180)
-    })
-
-
-models = random.randint(5,20)
-projects = random.randint(4,15)
-accuracy = round(random.uniform(95,99.9),2)
-loss = round(random.uniform(0.01,0.08),4)
-
+nodes = [
+    (150,120),(150,180),
+    (250,100),(250,150),(250,200),
+    (550,100),(550,150),(550,200),
+    (650,120),(650,180)
+]
 
 svg = f"""
-<svg width="{WIDTH}" height="{HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+<svg width="{WIDTH}" height="{HEIGHT}"
+xmlns="http://www.w3.org/2000/svg">
 
-<rect width="100%" height="100%" fill="#080014"/>
+
+<defs>
+
+<filter id="glow">
+<feGaussianBlur stdDeviation="5" result="blur"/>
+<feMerge>
+<feMergeNode in="blur"/>
+<feMergeNode in="SourceGraphic"/>
+</feMerge>
+</filter>
 
 
-<text x="30" y="45"
-font-size="28"
+<radialGradient id="core">
+<stop offset="0%" stop-color="#ffffff"/>
+<stop offset="40%" stop-color="#ff4fd8"/>
+<stop offset="100%" stop-color="#7209b7"/>
+</radialGradient>
+
+
+</defs>
+
+
+
+<rect width="100%" height="100%" fill="#070011"/>
+
+
+
+<!-- grid -->
+
+<g stroke="#24104a" opacity="0.5">
+
+"""
+
+for x in range(0, WIDTH, 40):
+    svg += f'<line x1="{x}" y1="0" x2="{x}" y2="{HEIGHT}"/>'
+
+for y in range(0, HEIGHT, 40):
+    svg += f'<line x1="0" y1="{y}" x2="{WIDTH}" y2="{y}"/>'
+
+svg += """
+
+</g>
+
+
+
+<text x="35" y="45"
 font-family="monospace"
+font-size="30"
 fill="#ff4fd8">
-NEURAL CORE
+
+NEURAL CORE // ONLINE
+
 </text>
 
 
-<text x="30" y="72"
-font-size="14"
+<text x="35" y="75"
 font-family="monospace"
+font-size="15"
 fill="white">
-AI LAB SIMULATION
+
+AI SYSTEM SIMULATION
+
 </text>
 
 
 
 <!-- connections -->
-<g stroke="#6c63ff" opacity="0.5">
+
+<g stroke="#00ffff" opacity="0.45">
+
 """
 
-for a in neurons:
-    for b in neurons:
-        if random.random() < 0.15:
+
+for a in nodes:
+    for b in nodes:
+        if random.random() < 0.18:
             svg += f"""
-            <line x1="{a['x']}" y1="{a['y']}"
-            x2="{b['x']}" y2="{b['y']}"/>
+            <line x1="{a[0]}" y1="{a[1]}"
+            x2="{b[0]}" y2="{b[1]}"/>
             """
 
 
 svg += "</g>"
 
 
-# neurons
-for n in neurons:
+# nodes
+
+for x,y in nodes:
     svg += f"""
-    <circle cx="{n['x']}"
-    cy="{n['y']}"
-    r="9"
-    fill="#ff4fd8"/>
+    <circle cx="{x}" cy="{y}"
+    r="10"
+    fill="#ff4fd8"
+    filter="url(#glow)"/>
     """
 
 
-svg += f"""
+# AI CORE
 
-<circle cx="350" cy="135" r="25"
-fill="#7df9ff"/>
+svg += """
+
+<circle cx="400" cy="150"
+r="45"
+fill="url(#core)"
+filter="url(#glow)">
+
+<animate attributeName="r"
+values="40;48;40"
+dur="2s"
+repeatCount="indefinite"/>
+
+</circle>
 
 
-<text x="330" y="140"
+
+<text x="380" y="155"
 font-family="monospace"
-font-size="12"
-fill="#080014">
+font-size="18"
+fill="#070011">
+
 AI
-</text>
-
-
-
-<text x="30" y="225"
-font-family="monospace"
-font-size="15"
-fill="#7df9ff">
-
-MODELS TRAINED: {models}
 
 </text>
 
 
-<text x="250" y="225"
-font-family="monospace"
-font-size="15"
-fill="#7df9ff">
 
-PROJECTS: {projects}
+<text x="35" y="250"
+font-family="monospace"
+font-size="16"
+fill="#00ffff">
+
+STATUS: LEARNING
 
 </text>
 
 
-<text x="450" y="225"
+
+<text x="35" y="275"
 font-family="monospace"
-font-size="15"
+font-size="14"
 fill="white">
 
-ACC: {accuracy}%
+LOSS: 0.0321 ↓   ACCURACY: 98.7%
 
 </text>
 
 
 
-<text x="30" y="250"
+<text x="570" y="275"
 font-family="monospace"
 font-size="12"
-fill="white">
+fill="#ff4fd8">
 
-LOSS: {loss} ↓ | UPDATED {datetime.now().strftime("%Y-%m-%d")}
+UPDATED """
+
+svg += datetime.now().strftime("%Y-%m-%d")
+
+svg += """
 
 </text>
 
@@ -128,8 +180,13 @@ LOSS: {loss} ↓ | UPDATED {datetime.now().strftime("%Y-%m-%d")}
 """
 
 
-with open("output/neural-core.svg","w", encoding="utf-8") as file:
-    file.write(svg)
+with open(
+"output/neural-core.svg",
+"w",
+encoding="utf-8"
+) as f:
+
+    f.write(svg)
 
 
-print("Neural Core generated!")
+print("Neural Core v2 generated!")
