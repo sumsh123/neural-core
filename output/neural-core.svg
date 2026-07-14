@@ -1,0 +1,193 @@
+
+<svg width="700" height="260" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="100%" height="100%" fill="#080014"/>
+
+
+<text x="30" y="45"
+font-size="28"
+font-family="monospace"
+fill="#ff4fd8">
+NEURAL CORE
+</text>
+
+
+<text x="30" y="72"
+font-size="14"
+font-family="monospace"
+fill="white">
+AI LAB SIMULATION
+</text>
+
+
+
+<!-- connections -->
+<g stroke="#6c63ff" opacity="0.5">
+
+            <line x1="168" y1="156"
+            x2="503" y2="91"/>
+            
+            <line x1="168" y1="156"
+            x2="434" y2="105"/>
+            
+            <line x1="556" y1="149"
+            x2="556" y2="149"/>
+            
+            <line x1="556" y1="149"
+            x2="503" y2="91"/>
+            
+            <line x1="556" y1="149"
+            x2="286" y2="116"/>
+            
+            <line x1="281" y1="116"
+            x2="168" y2="156"/>
+            
+            <line x1="281" y1="116"
+            x2="503" y2="91"/>
+            
+            <line x1="284" y1="105"
+            x2="281" y2="116"/>
+            
+            <line x1="503" y1="91"
+            x2="168" y2="156"/>
+            
+            <line x1="503" y1="91"
+            x2="286" y2="116"/>
+            
+            <line x1="491" y1="166"
+            x2="284" y2="105"/>
+            
+            <line x1="281" y1="128"
+            x2="168" y2="156"/>
+            
+            <line x1="281" y1="128"
+            x2="491" y2="166"/>
+            
+            <line x1="281" y1="128"
+            x2="434" y2="105"/>
+            
+            <line x1="286" y1="116"
+            x2="556" y2="149"/>
+            
+            <line x1="359" y1="123"
+            x2="281" y2="116"/>
+            
+            <line x1="359" y1="123"
+            x2="284" y2="105"/>
+            </g>
+    <circle cx="168"
+    cy="156"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="548"
+    cy="166"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="556"
+    cy="149"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="281"
+    cy="116"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="284"
+    cy="105"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="503"
+    cy="91"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="491"
+    cy="166"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="317"
+    cy="162"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="434"
+    cy="105"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="281"
+    cy="128"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="286"
+    cy="116"
+    r="9"
+    fill="#ff4fd8"/>
+    
+    <circle cx="359"
+    cy="123"
+    r="9"
+    fill="#ff4fd8"/>
+    
+
+<circle cx="350" cy="135" r="25"
+fill="#7df9ff"/>
+
+
+<text x="330" y="140"
+font-family="monospace"
+font-size="12"
+fill="#080014">
+AI
+</text>
+
+
+
+<text x="30" y="225"
+font-family="monospace"
+font-size="15"
+fill="#7df9ff">
+
+MODELS TRAINED: 18
+
+</text>
+
+
+<text x="250" y="225"
+font-family="monospace"
+font-size="15"
+fill="#7df9ff">
+
+PROJECTS: 7
+
+</text>
+
+
+<text x="450" y="225"
+font-family="monospace"
+font-size="15"
+fill="white">
+
+ACC: 97.04%
+
+</text>
+
+
+
+<text x="30" y="250"
+font-family="monospace"
+font-size="12"
+fill="white">
+
+LOSS: 0.0489 ↓ | UPDATED 2026-07-14
+
+</text>
+
+
+</svg>
