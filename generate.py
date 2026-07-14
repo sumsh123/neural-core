@@ -1,127 +1,260 @@
 import random
 from datetime import datetime
 
-WIDTH = 800
-HEIGHT = 300
+W = 900
+H = 430
+
+import urllib.request
+import json
+
+username = "sumsh123"
+
+try:
+    url = f"https://api.github.com/users/{username}/repos?per_page=100"
+    data = urllib.request.urlopen(url).read()
+    repos = json.loads(data)
+
+    PROJECT_COUNT = len(repos)
+
+except:
+    PROJECT_COUNT = 12
 
 nodes = [
-    (150,120),(150,180),
-    (250,100),(250,150),(250,200),
-    (550,100),(550,150),(550,200),
-    (650,120),(650,180)
+    (170,150),
+    (170,240),
+    (280,110),
+    (280,190),
+    (280,270),
+    (620,110),
+    (620,190),
+    (620,270),
+    (730,150),
+    (730,240)
 ]
 
+
 svg = f"""
-<svg width="{WIDTH}" height="{HEIGHT}"
+<svg width="{W}" height="{H}"
 xmlns="http://www.w3.org/2000/svg">
 
 
 <defs>
 
-<filter id="glow">
-<feGaussianBlur stdDeviation="5" result="blur"/>
-<feMerge>
-<feMergeNode in="blur"/>
-<feMergeNode in="SourceGraphic"/>
-</feMerge>
-</filter>
-
-
-<radialGradient id="core">
-<stop offset="0%" stop-color="#ffffff"/>
-<stop offset="40%" stop-color="#ff4fd8"/>
-<stop offset="100%" stop-color="#7209b7"/>
+<radialGradient id="background">
+<stop stop-color="#260033"/>
+<stop offset="1" stop-color="#050006"/>
 </radialGradient>
+
+
+<radialGradient id="reactor">
+<stop stop-color="#ffffff"/>
+<stop offset=".25" stop-color="#ffd6f5"/>
+<stop offset=".6" stop-color="#ff4fd8"/>
+<stop offset="1" stop-color="#7b00ff"/>
+</radialGradient>
+
+
+<filter id="glow">
+<feGaussianBlur stdDeviation="9"/>
+</filter>
 
 
 </defs>
 
 
+<rect width="100%"
+height="100%"
+fill="url(#background)"/>
 
-<rect width="100%" height="100%" fill="#070011"/>
 
 
-
-<!-- grid -->
-
-<g stroke="#24104a" opacity="0.5">
+<!-- particles -->
 
 """
 
-for x in range(0, WIDTH, 40):
-    svg += f'<line x1="{x}" y1="0" x2="{x}" y2="{HEIGHT}"/>'
+for i in range(90):
 
-for y in range(0, HEIGHT, 40):
-    svg += f'<line x1="0" y1="{y}" x2="{WIDTH}" y2="{y}"/>'
+    x = random.randint(0,W)
+    y = random.randint(0,H)
+
+    svg += f"""
+
+<circle cx="{x}"
+cy="{y}"
+r="{random.choice([1,2])}"
+fill="#ffb6ed">
+
+<animate
+attributeName="opacity"
+values="0.15;1;0.15"
+dur="{random.randint(2,6)}s"
+repeatCount="indefinite"/>
+
+</circle>
+
+"""
+
 
 svg += """
 
-</g>
+<!-- title -->
 
 
-
-<text x="35" y="45"
-font-family="monospace"
-font-size="30"
-fill="#ff4fd8">
-
-NEURAL CORE // ONLINE
-
-</text>
-
-
-<text x="35" y="75"
-font-family="monospace"
-font-size="15"
+<text x="45"
+y="55"
+font-family="Consolas, 'Courier New', monospace"
+font-size="28"
+font-weight="600"
+letter-spacing="2"
 fill="white">
 
-AI SYSTEM SIMULATION
+Summaiya's AI Lab
+
+</text>
+
+
+<text x="48"
+y="82"
+font-family="Segoe UI, Arial"
+font-size="12"
+letter-spacing="3"
+fill="#ff8ee8">
+
+AI • MACHINE LEARNING • CREATIVE SYSTEMS
 
 </text>
 
 
 
-<!-- connections -->
+<!-- neural network -->
 
-<g stroke="#00ffff" opacity="0.45">
+<g stroke="#ff4fd8"
+stroke-width="1.5"
+opacity="0.45">
 
 """
 
 
 for a in nodes:
+
     for b in nodes:
+
         if random.random() < 0.18:
+
             svg += f"""
-            <line x1="{a[0]}" y1="{a[1]}"
-            x2="{b[0]}" y2="{b[1]}"/>
-            """
+
+<line x1="{a[0]}"
+y1="{a[1]}"
+x2="{b[0]}"
+y2="{b[1]}">
+
+<animate
+attributeName="opacity"
+values="0.2;0.8;0.2"
+dur="3s"
+repeatCount="indefinite"/>
+
+</line>
+
+"""
 
 
 svg += "</g>"
 
 
-# nodes
-
 for x,y in nodes:
+
     svg += f"""
-    <circle cx="{x}" cy="{y}"
-    r="10"
-    fill="#ff4fd8"
-    filter="url(#glow)"/>
-    """
 
+<circle cx="{x}"
+cy="{y}"
+r="7"
+fill="#ffb6ed">
 
-# AI CORE
+<animate
+attributeName="r"
+values="6;10;6"
+dur="2s"
+repeatCount="indefinite"/>
+
+</circle>
+
+"""
+
 
 svg += """
 
-<circle cx="400" cy="150"
-r="45"
-fill="url(#core)"
+<!-- clickable reactor -->
+
+<a href="https://github.com/sumsh123">
+
+
+<g>
+
+
+<circle cx="450"
+cy="205"
+r="120"
+fill="#ff4fd8"
+opacity=".14"
 filter="url(#glow)">
 
-<animate attributeName="r"
-values="40;48;40"
+<animate
+attributeName="r"
+values="100;140;100"
+dur="3s"
+repeatCount="indefinite"/>
+
+</circle>
+
+
+
+<circle cx="450"
+cy="205"
+r="90"
+fill="none"
+stroke="#ff4fd8"
+stroke-width="2">
+
+<animateTransform
+attributeName="transform"
+type="rotate"
+from="0 450 205"
+to="360 450 205"
+dur="10s"
+repeatCount="indefinite"/>
+
+</circle>
+
+
+
+<circle cx="450"
+cy="205"
+r="65"
+fill="none"
+stroke="white"
+opacity=".5">
+
+<animateTransform
+attributeName="transform"
+type="rotate"
+from="360 450 205"
+to="0 450 205"
+dur="7s"
+repeatCount="indefinite"/>
+
+</circle>
+
+
+
+<circle cx="450"
+cy="205"
+r="48"
+fill="url(#reactor)">
+
+<animate
+attributeName="r"
+values="42;58;42"
 dur="2s"
 repeatCount="indefinite"/>
 
@@ -129,43 +262,68 @@ repeatCount="indefinite"/>
 
 
 
-<text x="380" y="155"
-font-family="monospace"
-font-size="18"
-fill="#070011">
-
-AI
-
-</text>
+<circle cx="450"
+cy="205"
+r="13"
+fill="white"/>
 
 
+</g>
 
-<text x="35" y="250"
-font-family="monospace"
-font-size="16"
-fill="#00ffff">
-
-STATUS: LEARNING
-
-</text>
+</a>
 
 
 
-<text x="35" y="275"
-font-family="monospace"
-font-size="14"
+<!-- status -->
+
+<text x="45"
+y="345"
+font-family="Segoe UI, Arial"
+font-size="15"
+letter-spacing="1"
 fill="white">
 
-LOSS: 0.0321 ↓   ACCURACY: 98.7%
+&gt; PROJECTS LOADED: """
+
+svg += str(PROJECT_COUNT)
+
+svg += """
+
+</text>
+
+
+<text x="45"
+y="380"
+font-family="Segoe UI, Arial"
+font-size="15"
+letter-spacing="1"
+fill="#04d9ff">
+
+&gt; STATUS: EVOLVING
 
 </text>
 
 
 
-<text x="570" y="275"
-font-family="monospace"
+<text x="650"
+y="380"
+font-family="Consolas, 'Courier New', monospace"
 font-size="12"
-fill="#ff4fd8">
+font-weight="600"
+letter-spacing="2"
+fill="#ffb6ed">
+
+◉  CLICK THE CORE ★•°•.
+
+</text>
+
+
+
+<text x="700"
+y="410"
+font-family="Segoe UI"
+font-size="10"
+fill="#888">
 
 UPDATED """
 
@@ -181,12 +339,11 @@ svg += """
 
 
 with open(
-"output/neural-core.svg",
-"w",
-encoding="utf-8"
+    "output/neural-core.svg",
+    "w",
+    encoding="utf-8"
 ) as f:
-
     f.write(svg)
 
 
-print("Neural Core v2 generated!")
+print("Summaiya's AI Lab generated!")
