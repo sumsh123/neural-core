@@ -186,7 +186,7 @@ svg += """
 
 <!-- clickable reactor -->
 
-<a href="https://github.com/sumsh123">
+<a href="https://github.com/sumsh123" target="_blank">
 
 
 <g>
@@ -317,17 +317,6 @@ fill="#ffb6ed">
 
 </text>
 
-
-
-<text x="700"
-y="410"
-font-family="Segoe UI"
-font-size="10"
-fill="#888">
-
-UPDATED """
-
-svg += datetime.now().strftime("%Y-%m-%d")
 
 svg += """
 
