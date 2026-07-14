@@ -1,0 +1,37 @@
+name: Update AI Lab
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+
+    - name: Count repositories
+      run: |
+        COUNT=$(curl -s https://api.github.com/users/sumsh123/repos?per_page=100 | grep -c '"name"')
+        sed -i "s/PROJECT_COUNT = .*/PROJECT_COUNT = $COUNT/" generate.py
+
+
+    - name: Generate SVG
+      run: |
+        python generate.py
+
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "actions@github.com"
+
+        git add .
+        git commit -m "Update project count" || exit 0
+        git push
