@@ -1,11 +1,9 @@
 import random
-from datetime import datetime
+import urllib.request
+import json
 
 W = 900
 H = 430
-
-import urllib.request
-import json
 
 username = "sumsh123"
 
@@ -13,11 +11,11 @@ try:
     url = f"https://api.github.com/users/{username}/repos?per_page=100"
     data = urllib.request.urlopen(url).read()
     repos = json.loads(data)
-
     PROJECT_COUNT = len(repos)
 
 except:
     PROJECT_COUNT = 12
+
 
 nodes = [
     (170,150),
@@ -33,10 +31,8 @@ nodes = [
 ]
 
 
-svg = f"""
-<svg width="{W}" height="{H}"
+svg = f"""<svg width="{W}" height="{H}"
 xmlns="http://www.w3.org/2000/svg">
-
 
 <defs>
 
@@ -45,19 +41,16 @@ xmlns="http://www.w3.org/2000/svg">
 <stop offset="1" stop-color="#050006"/>
 </radialGradient>
 
-
 <radialGradient id="reactor">
-<stop stop-color="#ffffff"/>
+<stop stop-color="white"/>
 <stop offset=".25" stop-color="#ffd6f5"/>
 <stop offset=".6" stop-color="#ff4fd8"/>
 <stop offset="1" stop-color="#7b00ff"/>
 </radialGradient>
 
-
 <filter id="glow">
 <feGaussianBlur stdDeviation="9"/>
 </filter>
-
 
 </defs>
 
@@ -66,11 +59,10 @@ xmlns="http://www.w3.org/2000/svg">
 height="100%"
 fill="url(#background)"/>
 
-
-
-<!-- particles -->
-
 """
+
+
+# particles
 
 for i in range(90):
 
@@ -78,7 +70,6 @@ for i in range(90):
     y = random.randint(0,H)
 
     svg += f"""
-
 <circle cx="{x}"
 cy="{y}"
 r="{random.choice([1,2])}"
@@ -91,18 +82,16 @@ dur="{random.randint(2,6)}s"
 repeatCount="indefinite"/>
 
 </circle>
-
 """
 
 
+# title
+
 svg += """
-
-<!-- title -->
-
 
 <text x="45"
 y="55"
-font-family="Consolas, 'Courier New', monospace"
+font-family="Consolas, monospace"
 font-size="28"
 font-weight="600"
 letter-spacing="2"
@@ -115,7 +104,7 @@ Summaiya's AI Lab
 
 <text x="48"
 y="82"
-font-family="Segoe UI, Arial"
+font-family="Consolas, monospace"
 font-size="12"
 letter-spacing="3"
 fill="#ff8ee8">
@@ -126,7 +115,7 @@ AI • MACHINE LEARNING • CREATIVE SYSTEMS
 
 
 
-<!-- neural network -->
+<!-- Neural Network -->
 
 <g stroke="#ff4fd8"
 stroke-width="1.5"
@@ -136,13 +125,11 @@ opacity="0.45">
 
 
 for a in nodes:
-
     for b in nodes:
 
         if random.random() < 0.18:
 
             svg += f"""
-
 <line x1="{a[0]}"
 y1="{a[1]}"
 x2="{b[0]}"
@@ -155,7 +142,6 @@ dur="3s"
 repeatCount="indefinite"/>
 
 </line>
-
 """
 
 
@@ -182,21 +168,18 @@ repeatCount="indefinite"/>
 """
 
 
+# core
+
 svg += """
 
-<!-- clickable reactor -->
-
-<a href="https://github.com/sumsh123" target="_blank">
-
-
-<g>
+<a href="https://github.com/sumsh123">
 
 
 <circle cx="450"
 cy="205"
 r="120"
 fill="#ff4fd8"
-opacity=".14"
+opacity=".15"
 filter="url(#glow)">
 
 <animate
@@ -206,7 +189,6 @@ dur="3s"
 repeatCount="indefinite"/>
 
 </circle>
-
 
 
 <circle cx="450"
@@ -227,13 +209,13 @@ repeatCount="indefinite"/>
 </circle>
 
 
-
 <circle cx="450"
 cy="205"
 r="65"
 fill="none"
 stroke="white"
 opacity=".5">
+
 
 <animateTransform
 attributeName="transform"
@@ -242,6 +224,7 @@ from="360 450 205"
 to="0 450 205"
 dur="7s"
 repeatCount="indefinite"/>
+
 
 </circle>
 
@@ -252,11 +235,13 @@ cy="205"
 r="48"
 fill="url(#reactor)">
 
+
 <animate
 attributeName="r"
 values="42;58;42"
 dur="2s"
 repeatCount="indefinite"/>
+
 
 </circle>
 
@@ -268,36 +253,33 @@ r="13"
 fill="white"/>
 
 
-</g>
-
 </a>
 
 
 
-<!-- status -->
-
 <text x="45"
 y="345"
-font-family="Segoe UI, Arial"
+font-family="Consolas, monospace"
 font-size="15"
-letter-spacing="1"
 fill="white">
 
 &gt; PROJECTS LOADED: """
 
+
 svg += str(PROJECT_COUNT)
+
 
 svg += """
 
 </text>
 
 
+
 <text x="45"
 y="380"
-font-family="Segoe UI, Arial"
+font-family="Consolas, monospace"
 font-size="15"
-letter-spacing="1"
-fill="#04d9ff">
+fill="#ff4fd8">
 
 &gt; STATUS: EVOLVING
 
@@ -307,18 +289,11 @@ fill="#04d9ff">
 
 <text x="650"
 y="380"
-font-family="Consolas, 'Courier New', monospace"
+font-family="Consolas, monospace"
 font-size="12"
-font-weight="600"
-letter-spacing="2"
 fill="#ffb6ed">
 
-◉  CLICK THE CORE ★•°•.
-
-</text>
-
-
-svg += """
+CLICK THE CORE
 
 </text>
 
@@ -331,8 +306,9 @@ with open(
     "output/neural-core.svg",
     "w",
     encoding="utf-8"
-) as f:
-    f.write(svg)
+) as file:
+
+    file.write(svg)
 
 
 print("Summaiya's AI Lab generated!")
